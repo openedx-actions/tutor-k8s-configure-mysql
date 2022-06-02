@@ -1,8 +1,8 @@
 #------------------------------------------------------------------------------
 # usage: configure tutor MySQL email service
 #------------------------------------------------------------------------------
-name: configure Redis
-description:
+name: configure MySQL
+description: Github Action to use Tutor to configure a remote MySQL service for use with Open edX running on AWS EKS Kubernetes
 branding:
   icon: 'cloud'
   color: 'orange'
