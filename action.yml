@@ -1,0 +1,28 @@
+#------------------------------------------------------------------------------
+# usage: configure tutor MySQL email service
+#------------------------------------------------------------------------------
+name: configure Redis
+description:
+branding:
+  icon: 'cloud'
+  color: 'orange'
+runs:
+  using: "composite"
+  steps:
+    # retrieve the MySQL connection parameters that we created in Terraform
+    # and then stored in Kubernetes secrets. These include:
+    #   MYSQL_HOST: mysql.app.mrionline.com
+    #   MYSQL_PORT: "3306"
+    #   OPENEDX_MYSQL_USERNAME: openedx
+    #   OPENEDX_MYSQL_PASSWORD: **************
+    #   MYSQL_ROOT_USERNAME: root
+    #   MYSQL_ROOT_PASSWORD: *************
+    #
+    # Also note that we are using jq to add a prefix of "TUTOR_" to each of the parameter names
+    #
+    # see: https://github.com/Medality-Health/openedx_devops/blob/main/terraform/modules/mysql/main.tf
+    - name: fetch MySQL configuration from Kubernetes secrets
+      run: |-
+        kubectl get secret mysql-root -n ${{ inputs.namespace }}  -o json | jq  '.data | map_values(@base64d)' | jq -r 'keys[] as $k | "TUTOR_\($k|ascii_upcase)=\(.[$k])"' >> $GITHUB_ENV
+        tutor config save
+      shell: bash
