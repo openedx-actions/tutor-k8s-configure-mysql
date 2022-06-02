@@ -53,5 +53,5 @@ jobs:
 
       # This action.
       - name: Configure remote MySQL service
-        uses: openedx-actions/tutor-service-configure-mysql
+        uses: openedx-actions/tutor-service-configure-mysql@v0.0.1
 ```
