@@ -27,7 +27,13 @@ runs:
     #
     # see: https://github.com/Medality-Health/openedx_devops/blob/main/terraform/modules/mysql/main.tf
     - name: fetch MySQL configuration from Kubernetes secrets
-      run: |-
-        kubectl get secret mysql-root -n ${{ inputs.namespace }}  -o json | jq  '.data | map_values(@base64d)' | jq -r 'keys[] as $k | "TUTOR_\($k|ascii_upcase)=\(.[$k])"' >> $GITHUB_ENV
-        tutor config save
       shell: bash
+      run: kubectl get secret mysql-root -n ${{ inputs.namespace }}  -o json | jq  '.data | map_values(@base64d)' | jq -r 'keys[] as $k | "TUTOR_\($k|ascii_upcase)=\(.[$k])"' >> $GITHUB_ENV
+
+    - name: set environment variables
+      shell: bash
+      run: echo "TUTOR_RUN_MYSQL=false" >> $GITHUB_ENV
+
+    - name: configure tutor
+      shell: bash
+      run: tutor config save
