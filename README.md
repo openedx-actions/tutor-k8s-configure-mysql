@@ -51,6 +51,8 @@ jobs:
       # This action.
       - name: Configure remote MySQL service
         uses: openedx-actions/tutor-service-configure-mysql@v1.0.1
+        with:
+          namespace: openedx-prod
 
       #
       # ... more steps to deploy your Open edX instance to k8s ...
