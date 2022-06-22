@@ -23,14 +23,14 @@ runs:
     #   MYSQL_ROOT_USERNAME: root
     #   MYSQL_ROOT_PASSWORD: *************
     - name: fetch MySQL root configuration from Kubernetes secrets
-      id: get-secret
+      id: get-root-secret
       uses: openedx-actions/tutor-k8s-get-secret@v1.0.0
       with:
         eks-namespace: ${{ inputs.namespace }}
         eks-secret-name: mysql-root
 
     - name: fetch MySQL openedx configuration from Kubernetes secrets
-      id: get-secret
+      id: get-openedx-secret
       uses: openedx-actions/tutor-k8s-get-secret@v0.0.7
       with:
         eks-namespace: ${{ inputs.namespace }}
