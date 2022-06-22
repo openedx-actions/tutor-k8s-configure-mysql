@@ -22,12 +22,19 @@ runs:
     #   OPENEDX_MYSQL_PASSWORD: **************
     #   MYSQL_ROOT_USERNAME: root
     #   MYSQL_ROOT_PASSWORD: *************
-    - name: fetch MySQL configuration from Kubernetes secrets
+    - name: fetch MySQL root configuration from Kubernetes secrets
       id: get-secret
       uses: openedx-actions/tutor-k8s-get-secret@v1.0.0
       with:
         eks-namespace: ${{ inputs.namespace }}
         eks-secret-name: mysql-root
+
+    - name: fetch MySQL openedx configuration from Kubernetes secrets
+      id: get-secret
+      uses: openedx-actions/tutor-k8s-get-secret@v0.0.7
+      with:
+        eks-namespace: ${{ inputs.namespace }}
+        eks-secret-name: mysql-openedx
 
     - name: set environment variables
       id: set-environment-variables
