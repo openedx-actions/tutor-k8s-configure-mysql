@@ -16,7 +16,7 @@ runs:
   steps:
     # retrieve the MySQL connection parameters that we created in Terraform
     # and then stored in Kubernetes secrets. These include:
-    #   MYSQL_HOST: mysql.app.mrionline.com
+    #   MYSQL_HOST: mysql.app.yourschool.edu
     #   MYSQL_PORT: "3306"
     #   OPENEDX_MYSQL_USERNAME: openedx
     #   OPENEDX_MYSQL_PASSWORD: **************
